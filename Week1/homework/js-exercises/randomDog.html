@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Dog</title>
+    <style>
+
+        body {
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+        button {
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            margin: 10px 30px;
+            border-radius: 5px;
+            font-size: 1.1em;
+            outline: none;
+            color: crimson;
+            width: 200px;
+        }
+
+        button:hover {
+            transform: scale(1.2);
+            opacity: 0.8;
+            color: white;
+        }
+
+        #xml {
+            background-color: #5bc0de;
+        }
+        #axios {
+            background-color: #5cb85c;
+        }
+
+        img {
+            width: 250px;
+            height: auto;
+            margin-bottom: 30px;
+        }
+
+        ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+            align-content: center;
+            align-items: center;
+            list-style: none;
+        }
+        li {
+            margin-right: 30px;
+        }
+
+    </style>
+</head>
+<body>
+    <button id="xml">Get XMLHttpRequest</button>
+    <button id="axios">Get Axios Request</button>
+    <ul id="dog-list">
+
+    </ul>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="randomDog.js"></script>
+</body>
+</html>
