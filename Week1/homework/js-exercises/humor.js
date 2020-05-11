@@ -10,7 +10,7 @@ function xmlrequest() {
     //When response comes
     xhr.onload = function() {   
         if(xhr.status === 200) {
-           const responseObj = (JSON.parse(xhr.responseText));
+           const responseObj = JSON.parse(xhr.responseText);
            pic.innerHTML = `<img style="width:500px; margin-right:50px" src="${responseObj.img}">`
         } else {
             //Error handling, client side
