@@ -1,7 +1,7 @@
 const url = "https://dog.ceo/api/breeds/image/random";
 const xmlBtn = document.querySelector('#xml');
 const axiosBtn = document.querySelector('#axios');
-const dog = document.querySelector('#dog-list');
+const dogs = document.querySelector('#dog-list');
 
 //XMLHTTPREQUEST
 function xmlrequest() {
