@@ -40,12 +40,22 @@ li {
   border-radius: 3px;
 }
 
-th,td {
+th,
+td {
   padding: 4px 2px;
   vertical-align: top;
 }
 
-@media only screen and (min-width: 800px) and (max-width: 1199px) {
+.main-container {
+  display: flex;
+}
+
+.repo-container,
+.contributors-container {
+  width: 48%;
+}
+
+/* @media only screen and (min-width: 800px) and (max-width: 1199px) {
   li {
     width: 49%;
   }
@@ -55,4 +65,4 @@ th,td {
   li {
     width: 32.5%;
   }
-}
+} */
