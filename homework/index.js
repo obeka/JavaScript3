@@ -6,18 +6,14 @@
     class: 'options'
   });
 
-  function fetchJSON(url, cb) {
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `${response.status} - ${response.statusText}. Check your search terms.`,
-          );
-        }
-        return response.json();
-      })
-      .then((data) => cb(null, data))
-      .catch((error) => cb(error, null));
+  async function fetchJSON(url, cb) {
+    try {
+      const response = await axios.get(url)
+      const data =  response.data
+      cb(null, data)
+    } catch (error) {
+      cb(error, null)
+    }  
   }
 
   function createAndAppend(name, parent, options = {}) {

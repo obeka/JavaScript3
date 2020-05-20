@@ -37,7 +37,15 @@
       );
 
       this.select.addEventListener('change', () =>
-        this.fetchData(this.select.value),
+        {
+          this.fetchData(this.select.value)
+          //THIS IS A PLAYGROUND FOR LOADING SPINNER EFFECT - NOT THE PART OF THE HOMEWORK
+          const contributorContainer = document.querySelector('.contributors-container');
+          contributorContainer.innerText = 'Loading...';
+          createAndAppend('div', contributorContainer, {
+            class: 'loader'
+          })
+        }
       );
     }
   }
