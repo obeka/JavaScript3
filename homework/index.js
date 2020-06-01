@@ -6,14 +6,18 @@
     class: 'options'
   });
 
-  async function fetchJSON(url, cb) {
+  async function fetchJSON(url) {
     try {
       const response = await axios.get(url)
-      const data =  response.data
-      cb(null, data)
+      const data = response.data
+      return data
     } catch (error) {
-      cb(error, null)
-    }  
+      document.querySelector('.main-container').classList.add('remove');
+      createAndAppend('div', root, {
+        text: error + ". Check your search terms...",
+        class: 'alert-error',
+      });
+    }
   }
 
   function createAndAppend(name, parent, options = {}) {
@@ -34,20 +38,10 @@
     tableCreator(table, repo);
   }
 
-  function main(url) {
-    fetchJSON(url, (err, repos) => {
-      const root = document.getElementById('root');
-      if (err) {
-        document.querySelector('.main-container').classList.add('remove');
-        createAndAppend('div', root, {
-          text: err.message,
-          class: 'alert-error',
-        });
-        return;
-      }
-      //ADDING AND RENDERING REPOS
-      addRepo(repos)
-    });
+  async function main(url) {
+    const root = document.getElementById('root');
+    const data = await fetchJSON(url)
+    addRepo(data)
   }
 
   function addRepo(repos) {
@@ -93,42 +87,35 @@
   }
 
   //CONTRIBUTORS API SECTION
-  function addContributor(repo) {
+  async function addContributor(repo) {
     const contURL = repo.contributors_url;
-    fetchJSON(contURL, (err, contributors) => {
-      const root = document.getElementById('root');
-      if (err) {
-        createAndAppend('div', root, {
-          text: err.message,
-          class: 'alert-error',
-        });
-        return;
-      }
-      const contContainer = document.querySelector('.contributors-container');
-      contContainer.innerText = '';
-      const contributorHeader = createAndAppend('p', contContainer, {
-        class: 'contributor-header'
+    const root = document.getElementById('root');
+    const contContainer = document.querySelector('.contributors-container');
+    contContainer.innerText = '';
+    const contributorHeader = createAndAppend('p', contContainer, {
+      class: 'contributor-header'
+    });
+    contributorHeader.innerText = 'Contributions';
+    const ul = createAndAppend('ul', contContainer);
+    const contributors = await fetchJSON(contURL);
+    contributors.forEach((person) => {
+      const li = createAndAppend('li', ul);
+      const div = createAndAppend('div', li, {
+        class: 'contributors-avatar'
       });
-      contributorHeader.innerText = 'Contributions';
-      const ul = createAndAppend('ul', contContainer);
-      contributors.forEach((person) => {
-        const li = createAndAppend('li', ul);
-        const div = createAndAppend('div', li, {
-          class: 'contributors-avatar'
-        });
-        createAndAppend('img', div, {
-          src: person.avatar_url
-        });
-        createAndAppend('a', div, {
-          text: person.login,
-          href: person.html_url
-        });
-        createAndAppend('span', li, {
-          text: person.contributions,
-          class: 'contribution-counts'
-        });
+      createAndAppend('img', div, {
+        src: person.avatar_url
+      });
+      createAndAppend('a', div, {
+        text: person.login,
+        href: person.html_url
+      });
+      createAndAppend('span', li, {
+        text: person.contributions,
+        class: 'contribution-counts'
       });
     });
+
   }
 
   const HYF_REPOS_URL =
